@@ -1,5 +1,3 @@
-# football_Team_Cards
-
 # ⚽ Football Team Cards
 
 Ein einfaches Webprojekt zum Üben von modernem JavaScript mit DOM-Manipulation, Array-Methoden und Template Literals. Spielerinformationen einer Fußballmannschaft werden in Form von Karten angezeigt. Die Anzeige kann nach Position oder Spitznamen gefiltert werden.
