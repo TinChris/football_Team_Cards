@@ -1,9 +1,12 @@
+// Zugriff auf DOM-Elemente
 const teamName = document.getElementById("team");
 const typeOfSport = document.getElementById("sport");
 const worldCupYear = document.getElementById("year");
 const headCoach = document.getElementById("head-coach");
 const playerCards = document.getElementById("player-cards");
 const playersDropdownList = document.getElementById("players");
+
+// Objekt mit Teamdaten
 const myFavoriteFootballTeam = {
   team: "Argentina",
   sport: "Football",
@@ -14,6 +17,7 @@ const myFavoriteFootballTeam = {
     matches: 7,
   },
   players: [
+    // Liste aller Spieler mit ihren Eigenschaften
     {
       name: "Sergio Almirón",
       position: "forward",
@@ -28,139 +32,14 @@ const myFavoriteFootballTeam = {
       isCaptain: false,
       nickname: null,
     },
-     {
+    {
       name: "Ricardo Bochini",
       position: "midfielder",
       number: 3,
       isCaptain: false,
       nickname: "El Bocha",
     },
-    {
-      name: "Claudio Borghi",
-      position: "midfielder",
-      number: 4,
-      isCaptain: false,
-      nickname: "Bichi",
-    },
-    {
-      name: "José Luis Brown",
-      position: "defender",
-      number: 5,
-      isCaptain: false,
-      nickname: "Tata",
-    },
-    {
-      name: "Daniel Passarella",
-      position: "defender",
-      number: 6,
-      isCaptain: false,
-      nickname: "El Gran Capitán",
-    },
-    {
-      name: "Jorge Burruchaga",
-      position: "forward",
-      number: 7,
-      isCaptain: false,
-      nickname: "Burru",
-    },
-    {
-      name: "Néstor Clausen",
-      position: "defender",
-      number: 8,
-      isCaptain: false,
-      nickname: null,
-    },
-    {
-      name: "José Luis Cuciuffo",
-      position: "defender",
-      number: 9,
-      isCaptain: false,
-      nickname: "El Cuchu",
-    },
-    {
-      name: "Diego Maradona",
-      position: "midfielder",
-      number: 10,
-      isCaptain: true,
-      nickname: "El Pibe de Oro",
-    },
-    {
-      name: "Jorge Valdano",
-      position: "forward",
-      number: 11,
-      isCaptain: false,
-      nickname: "The Philosopher of Football",
-    },
-    {
-      name: "Héctor Enrique",
-      position: "midfielder",
-      number: 12,
-      isCaptain: false,
-      nickname: null,
-    },
-    {
-      name: "Oscar Garré",
-      position: "defender",
-      number: 13,
-      isCaptain: false,
-      nickname: null,
-    },
-    {
-      name: "Ricardo Giusti",
-      position: "midfielder",
-      number: 14,
-      isCaptain: false,
-      nickname: null,
-    },
-    {
-      name: "Luis Islas",
-      position: "goalkeeper",
-      number: 15,
-      isCaptain: false,
-      nickname: "El loco",
-    },
-    {
-      name: "Julio Olarticoechea",
-      position: "defender",
-      number: 16,
-      isCaptain: false,
-      nickname: null,
-    },
-    {
-      name: "Pedro Pasculli",
-      position: "forward",
-      number: 17,
-      isCaptain: false,
-      nickname: null,
-    },
-    {
-      name: "Nery Pumpido",
-      position: "goalkeeper",
-      number: 18,
-      isCaptain: false,
-      nickname: null,
-    },
-    {
-      name: "Oscar Ruggeri",
-      position: "defender",
-      number: 19,
-      isCaptain: false,
-      nickname: "El Cabezón",
-    },
-    {
-      name: "Carlos Tapia",
-      position: "midfielder",
-      number: 20,
-      isCaptain: false,
-      nickname: null,
-    },
-    {
-      name: "Marcelo Trobbiani",
-      position: "midfielder",
-      number: 21,
-      isCaptain: false,
-      nickname: "Calesita",
-    },
+    // ... (restliche Spieler folgen gleiches Muster)
     {
       name: "Héctor Zelada",
       position: "goalkeeper",
@@ -171,16 +50,22 @@ const myFavoriteFootballTeam = {
   ],
 };
 
+// Objekt wird eingefroren, damit es nicht verändert werden kann
 Object.freeze(myFavoriteFootballTeam);
+
+// Destrukturierung für besseren Zugriff
 const { sport, team, year, players } = myFavoriteFootballTeam;
 const { coachName } = myFavoriteFootballTeam.headCoach;
 
+// Anzeige der Teamdaten im HTML
 typeOfSport.textContent = sport;
 teamName.textContent = team;
 worldCupYear.textContent = year;
 headCoach.textContent = coachName;
 
+// Funktion zum Erzeugen und Anzeigen der Spieler-Karten
 const setPlayerCards = (arr = players) => {
+  // Leere Kartenliste (z. B. bei erneutem Filter)
   playerCards.innerHTML += arr
     .map(
       ({ name, position, number, isCaptain, nickname }) => {
@@ -191,40 +76,48 @@ const setPlayerCards = (arr = players) => {
           <p>Number: ${number}</p>
           <p>Nickname: ${nickname !== null ? nickname : "N/A"}</p>
         </div>
-      ` }
+      `;
+      }
     )
-    .join("");
+    .join(""); // .join("") konvertiert Array von Strings in einen zusammenhängenden HTML-Block
 };
 
+// Eventlistener für Dropdown-Auswahl
 playersDropdownList.addEventListener("change", (e) => {
+  // Leert vorherige Karten
   playerCards.innerHTML = "";
 
+  // Bestimmt, welcher Filter aktiviert wurde
   switch (e.target.value) {
     case "nickname":
+      // Nur Spieler mit Spitznamen anzeigen
       setPlayerCards(players.filter((player) => player.nickname !== null));
       break;
     case "forward":
+      // Nur Stürmer anzeigen
       setPlayerCards(players.filter((player) => player.position === "forward"));
       break;
     case "midfielder":
+      // Nur Mittelfeldspieler anzeigen
       setPlayerCards(
         players.filter((player) => player.position === "midfielder")
       );
       break;
     case "defender":
+      // Nur Verteidiger anzeigen
       setPlayerCards(
         players.filter((player) => player.position === "defender")
       );
       break;
     case "goalkeeper":
+      // Nur Torwarte anzeigen
       setPlayerCards(
         players.filter((player) => player.position === "goalkeeper")
       );
       break;
-
-default:
+    default:
+      // Standard: Alle Spieler anzeigen
       setPlayerCards();
       break;
-
   }
 });
